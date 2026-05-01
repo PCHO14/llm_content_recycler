@@ -8,7 +8,7 @@ dependencies = [
     "lmstudio>=1.5.0",
     "pysqlite3>=0.6.0",
     "ruff>=0.15.12",
-    "rutube-transcriber @ https://github.com/PixelNinja123/rutube-transcriber.git",
+    "rutube-transcriber @ git+https://github.com/PixelNinja123/rutube-transcriber.git@create_module",
 ]
 
 [tool.ruff.lint]

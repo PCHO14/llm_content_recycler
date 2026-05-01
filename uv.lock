@@ -289,7 +289,7 @@ wheels = [
 ]
 
 [[package]]
-name = "llm-module"
+name = "llm-content-recylcer"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
@@ -304,7 +304,7 @@ requires-dist = [
     { name = "lmstudio", specifier = ">=1.5.0" },
     { name = "pysqlite3", specifier = ">=0.6.0" },
     { name = "ruff", specifier = ">=0.15.12" },
-    { name = "rutube-transcriber", git = "https://github.com/PixelNinja123/rutube-transcriber.git" },
+    { name = "rutube-transcriber", git = "https://github.com/PixelNinja123/rutube-transcriber.git?rev=create_module" },
 ]
 
 [[package]]
@@ -950,7 +950,7 @@ wheels = [
 [[package]]
 name = "rutube-transcriber"
 version = "0.1.0"
-source = { git = "https://github.com/PixelNinja123/rutube-transcriber.git#143ee1731afc5a6e86fdf1e22b91f1c36584de25" }
+source = { git = "https://github.com/PixelNinja123/rutube-transcriber.git?rev=create_module#0edae28a59ad1d3c90704314619a7be90358eff8" }
 dependencies = [
     { name = "openai-whisper" },
     { name = "yt-dlp" },
