@@ -10,7 +10,7 @@
 uv run -m llm_content_recylcer.download_and_analyze_content <ссылка_на_видео>
 ```
 
-В результате в папке ***files/** будет создан ***.db*** файл формата:
+В результате в папке **files/** будет создан ***.db*** файл формата:
 
 ```
 | id | video_id | url | title | transcription | tag |
