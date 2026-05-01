@@ -950,7 +950,7 @@ wheels = [
 [[package]]
 name = "rutube-transcriber"
 version = "0.1.0"
-source = { git = "https://github.com/PixelNinja123/rutube-transcriber.git?rev=create_module#0edae28a59ad1d3c90704314619a7be90358eff8" }
+source = { git = "https://github.com/PixelNinja123/rutube-transcriber.git?rev=create_module#01deaa75f02eac8be8bb5565e9d2384dfaab80ca" }
 dependencies = [
     { name = "openai-whisper" },
     { name = "yt-dlp" },
