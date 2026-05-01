@@ -1,7 +1,5 @@
-from pathlib import Path
 import lmstudio as lms
 from lmstudio import LLM, Chat
-import sqlite3
 from src.const import INIT_PROMT, MODEL_NAME, PATH_TO_DB, LLM_API
 import re
 
