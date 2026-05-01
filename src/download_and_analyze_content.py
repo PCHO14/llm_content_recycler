@@ -29,15 +29,12 @@ def download_and_analyze_content(
     )
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     description = 'Загрузка и анализ видео с Rutube с помощью модуля rutube-transcriber'
     parser = argparse.ArgumentParser(description=description)
 
     parser.add_argument(
-        'video_url',
-        type=str,
-        required=True,
-        help='Ссылка на видео Rutube'
+        'video_url', type=str, required=True, help='Ссылка на видео Rutube'
     )
     args = parser.parse_args()
 

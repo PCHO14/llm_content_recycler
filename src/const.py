@@ -5,7 +5,7 @@ MODEL_NAME = 'qwen3-4b-thinking-2507'
 
 PATH_TO_DB = Path(__file__).parent.parent / 'files' / 'transcriptions.db'
 
-LLM_API = "localhost:1234"
+LLM_API = 'localhost:1234'
 
 INIT_PROMT = dedent(
     """\
