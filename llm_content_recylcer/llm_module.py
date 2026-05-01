@@ -1,9 +1,9 @@
 import lmstudio as lms
 from lmstudio import LLM, Chat
-from src.const import INIT_PROMT, MODEL_NAME, PATH_TO_DB, LLM_API
+from llm_content_recylcer.const import INIT_PROMT, MODEL_NAME, PATH_TO_DB, LLM_API
 import re
 
-from src.utils import read_db
+from llm_content_recylcer.utils import read_db
 
 
 def get_tag(llm_model: LLM, chat: Chat, text: str) -> str:

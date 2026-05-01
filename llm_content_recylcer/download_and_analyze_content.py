@@ -3,8 +3,8 @@ from pathlib import Path
 from rutube_transcriber.database import init_db, is_exists, save
 from rutube_transcriber.downloader import download_audio
 from rutube_transcriber.transcriber import transcribe
-from src.llm_module import init_model, get_tag
-from src.const import PATH_TO_DB, MODEL_NAME
+from llm_content_recylcer.llm_module import init_model, get_tag
+from llm_content_recylcer.const import PATH_TO_DB, MODEL_NAME
 from lmstudio import LLM, Chat
 
 
