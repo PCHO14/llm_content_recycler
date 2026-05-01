@@ -1,5 +1,5 @@
 [project]
-name = "llm-module"
+name = "llm_content_recylcer"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
