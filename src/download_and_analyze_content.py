@@ -34,7 +34,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=description)
 
     parser.add_argument(
-        'video_url', type=str, required=True, help='Ссылка на видео Rutube'
+        'video_url', type=str, help='Ссылка на видео Rutube'
     )
     args = parser.parse_args()
 
