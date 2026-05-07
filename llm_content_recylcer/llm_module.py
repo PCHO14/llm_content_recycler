@@ -1,9 +1,7 @@
 import lmstudio as lms
 from lmstudio import LLM, Chat
-from llm_content_recylcer.const import INIT_PROMT, MODEL_NAME, PATH_TO_DB, LLM_API
+from llm_content_recylcer.const import LLM_API
 import re
-
-from llm_content_recylcer.utils import read_db
 
 
 def get_tag(llm_model: LLM, chat: Chat, text: str) -> str:
@@ -41,9 +39,3 @@ def create_content(
     result = llm_model.respond(chat)
     result_cleaned = re.sub(r'.*?</think>\n\n', '', str(result), flags=re.DOTALL)
     return result_cleaned
-
-
-if __name__ == '__main__':
-    model, model_chat = init_model(MODEL_NAME, INIT_PROMT)
-    text_for_analyze = read_db(PATH_TO_DB)
-    print(get_tag(model, model_chat, text_for_analyze))
