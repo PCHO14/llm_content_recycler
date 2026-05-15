@@ -4,7 +4,7 @@ from rutube_transcriber.database import init_db, is_exists, save
 from rutube_transcriber.downloader import download_audio
 from rutube_transcriber.transcriber import transcribe
 from llm_content_recylcer.llm_module import init_model, get_tag
-from llm_content_recylcer.const import PATH_TO_DB, MODEL_NAME
+from llm_content_recylcer.const import PATH_TO_DB, MODEL_NAME, INIT_PROMT
 from lmstudio import LLM, Chat
 
 
@@ -39,6 +39,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     init_db(PATH_TO_DB)
-    model, model_chat = init_model(MODEL_NAME)
+    model, model_chat = init_model(MODEL_NAME, INIT_PROMT)
 
     download_and_analyze_content(args.video_url, PATH_TO_DB, model, model_chat)

@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "gradio>=6.14.0",
     "lmstudio>=1.5.0",
     "pysqlite3>=0.6.0",
     "ruff>=0.15.12",
