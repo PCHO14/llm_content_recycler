@@ -5,9 +5,11 @@ import re
 
 
 def get_tag(llm_model: LLM, chat: Chat, text: str) -> str:
+    print('Начата обработка тэга')
     chat.add_user_message(text)
     result = llm_model.respond(chat)
     result_cleaned = re.sub(r'.*?</think>\n\n', '', str(result), flags=re.DOTALL)
+    print('Тэг присвоен')
     return result_cleaned
 
 
