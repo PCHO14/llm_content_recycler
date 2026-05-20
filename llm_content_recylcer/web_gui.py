@@ -36,10 +36,10 @@ _llm_model = None
 _llm_chat  = None
 
 
-def _get_model():
+def _get_model(model_name: str):
     global _llm_model, _llm_chat
     if _llm_model is None:
-        _llm_model, _llm_chat = init_model(MODEL_NAME, INIT_PROMT)
+        _llm_model, _llm_chat = init_model(model_name, INIT_PROMT)
     return _llm_model, _llm_chat
 
 # ---------------------------------------------------------------------------
@@ -116,7 +116,7 @@ def _parse_json(text: str):
         return None
 
 
-def _make_post(video: dict, wishes: str = "") -> str:
+def _make_post(video: dict, model_name: str, wishes: str = "") -> str:
     wishes = wishes.strip() or "нет"
 
     if POST_MOCK:
@@ -134,7 +134,7 @@ def _make_post(video: dict, wishes: str = "") -> str:
         )
 
     try:
-        model, chat = _get_model()
+        model, chat = _get_model(model_name)
         prompt = _PROMPT_POST.format(
             video_title   = video["title"],
             video_tag     = video.get("tag", ""),
@@ -164,7 +164,8 @@ def _make_post(video: dict, wishes: str = "") -> str:
 # TAB 1 — Загрузка
 # ---------------------------------------------------------------------------
 
-def process_urls(urls_text: str, progress=gr.Progress()):
+
+def process_urls(urls_text: str, model_name: str, progress=gr.Progress()):
     if not urls_text.strip():
         return "Введите хотя бы одну ссылку."
 
@@ -180,7 +181,7 @@ def process_urls(urls_text: str, progress=gr.Progress()):
         try:
             # шаг 1 — подключение к LLM
             progress(base + step * 0.1, desc=f"[{i+1}/{n}] Подключаю модель...")
-            model, chat = _get_model()
+            model, chat = _get_model(model_name)
 
             # шаг 2 — скачивание аудио
             progress(base + step * 0.3, desc=f"[{i+1}/{n}] Скачиваю аудио...")
@@ -225,7 +226,7 @@ def filter_videos(tag_filter: str):
     return gr.update(choices=choices, value=choices[0] if choices else None)
 
 
-def gen_post_from_db(selected: str, wishes: str, progress=gr.Progress()):
+def gen_post_from_db(selected: str, wishes: str, model_name: str, progress=gr.Progress()):
     if not selected:
         return "️  Выберите видео из списка."
     title_part = selected.split("  [")[0].strip()
@@ -233,14 +234,14 @@ def gen_post_from_db(selected: str, wishes: str, progress=gr.Progress()):
     if not video:
         return "️  Видео не найдено в базе."
     progress(0.3, desc="Генерирую пост...")
-    return _make_post(video, wishes)
+    return _make_post(video, model_name, wishes)
 
 
 # ---------------------------------------------------------------------------
 # UI
 # ---------------------------------------------------------------------------
 
-def build_app():
+def build_app(model_name: str):
     init_choices = [f"{v['title']}  [{v['tag']}]" for v in _all_videos()]
 
     theme = gr.themes.Base(
@@ -320,7 +321,7 @@ def build_app():
                         load_log = gr.Markdown(elem_classes="log-out", value="", label="лог", show_label=True)
 
                 load_btn.click(
-                    fn=process_urls,
+                    fn=lambda urls, progress=gr.Progress(): process_urls(urls, model_name, progress=progress),
                     inputs=[urls_input],
                     outputs=[load_log],
                 )
@@ -375,7 +376,15 @@ def build_app():
 
                 tag_filter.change(fn=filter_videos, inputs=[tag_filter], outputs=[video_radio])
                 refresh_btn.click(fn=refresh_tags, outputs=[tag_filter])
-                gen_btn.click(fn=gen_post_from_db, inputs=[video_radio, wishes_tab2], outputs=[post_out_tab2])
-                regen_btn.click(fn=gen_post_from_db, inputs=[video_radio, wishes_tab2], outputs=[post_out_tab2])
+                gen_btn.click(
+                    fn=lambda video, wishes, progress=gr.Progress(): gen_post_from_db(video, wishes, model_name, progress=progress),
+                    inputs=[video_radio, wishes_tab2],
+                    outputs=[post_out_tab2],
+                )
+                regen_btn.click(
+                    fn=lambda video, wishes, progress=gr.Progress(): gen_post_from_db(video, wishes, model_name, progress=progress),
+                    inputs=[video_radio, wishes_tab2],
+                    outputs=[post_out_tab2],
+                )
 
     return demo
